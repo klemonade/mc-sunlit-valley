@@ -1,7 +1,7 @@
 # Dokploy: create a Compose application pointing at this file.
 # EULA defaults to TRUE here, which accepts the Minecraft EULA (https://aka.ms/MinecraftEULA).
 # Set EULA to anything else before the first boot to refuse. MEMORY defaults to 4G; raise for more players.
-# Publish TCP 25565 to the host — this is a game server, not HTTP; do not rely on the HTTP proxy alone.
+# Do not publish host ports. Dokploy attaches the domain and forwards to container port 25565.
 # Named volumes survive redeploy: sunlit_world = map + playerdata/stats/advancements under level-name world;
 # sunlit_server_state = eula, server.properties, whitelist/ops/bans, usercache, server.jar, libraries, logs, backups.
 # Optional env pass-through: MOTD, MAX_PLAYERS, ONLINE_MODE, RCON_PASSWORD (enables RCON on 25575 when set).
@@ -14,9 +14,9 @@ services:
     stdin_open: true
     tty: true
     stop_grace_period: 90s
-    ports:
-      - "25565:25565"
-      - "25575:25575"
+    expose:
+      - "25565"
+      - "25575"
     environment:
       EULA: ${EULA:-TRUE}
       MEMORY: ${MEMORY:-4G}

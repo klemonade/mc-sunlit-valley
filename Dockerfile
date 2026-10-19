@@ -16,4 +16,5 @@ COPY patchouli_books ./patchouli_books
 COPY docker/entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh /data/start.sh
 
+EXPOSE 25565 25575
 ENTRYPOINT ["/entrypoint.sh"]
